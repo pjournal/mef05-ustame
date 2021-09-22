@@ -1,4 +1,4 @@
-# Meryem GitHub Pages
+# Meryem's Pages
 
 
 ## Progress
