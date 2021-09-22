@@ -1,13 +1,13 @@
-## Meryem GitHub Pages
+# Meryem GitHub Pages
 
 
-### Progress
+## Progress
 
 You can find my weekly progress
 
-## Week1
+### Week1
 
-## Week2
+### Week2
 
 ```markdown
 
