@@ -7,6 +7,7 @@ You can find my weekly progress
 
 ### Week1
 
+[Rmarkdown](rmarkdown.md)
 
 ### Week2
 
