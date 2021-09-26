@@ -1,0 +1,45 @@
+---
+title: "RMarkdown Notes"
+author:"Meryem Usta"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+## About Myself
+My name is Meryem Usta. I graduated from Istanbul Technical University Mathematical Engineering in August 2017. I'm beginning MEF University Master of Big Data Analytics in September 2021. 
+
+I'm working at Garanti Technology as Data Engineer. I develop ETL pipeline and legal reports. I mainly use Oracle Data Integrator for data processing, SQL for analysis and Oracle Business Intelligence for reporting
+
+I am interested in mathematics and software fields.I want to  do professional work in the field of data analytics, which I am interested in, and to direct my career completely to the field of data science.
+
+**Contact me** : [Linkedin](https://www.linkedin.com/in/meryemusta/)
+
+## UseR! Systematic Data Validation
+**_Systematic data validation with the validate package_**
+  
+If you try to make some logical assumption your data, you would manipulate it. You should clean or edit the data for appling statistical methods or using machine learning algorithms. R suply "validate" package for this process.
+
+Thic process includes some steps:
+
+```{r cars}
+summary(cars)
+```
+
+
+If you watch: [Click](https://www.youtube.com/watch?v=hb785sQt8tg&list=PL4IzsxWztPdnCC_kMCYKrd_t6cViMhBrD&index=2)
+## R-Post 
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+### **Customer Segmentation**
+
+If you read: [Click](https://data-flair.training/blogs/r-data-science-project-customer-segmentation/)
+
+### **Fraud Detection**
+
+If you read: [Click](https://blog.codecentric.de/en/2017/09/data-science-fraud-detection/)
+
