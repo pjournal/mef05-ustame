@@ -1,7 +1,6 @@
 ---
 title: "RMarkdown Notes"
 author: "Meryem Usta"
-date: "`r format(Sys.time(), '%d %B %Y')`"
 output: html_document
 ---
 
