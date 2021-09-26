@@ -6,7 +6,7 @@
 You can find my weekly progress
 
 ### Week1
-[RMarkDown](RMarkdown.html)
+[RMarkDown](https://github.com/pjournal/mef05-ustame/blob/gh-pages/RMarkdown.html)
 
 ### Week2
 
