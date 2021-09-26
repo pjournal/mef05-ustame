@@ -23,7 +23,7 @@ If you try to make some logical assumption your data, you would manipulate it. Y
 
 This process includes some steps:
 
-![](C:\Users\Meryem\Documents\GitHub\mef05-ustame\Data_process_steps.JPG)
+![](Data_process_steps.JPG)
 
 If you watch: [Click](https://www.youtube.com/watch?v=hb785sQt8tg&list=PL4IzsxWztPdnCC_kMCYKrd_t6cViMhBrD&index=2)
 
