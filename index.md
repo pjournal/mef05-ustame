@@ -30,6 +30,10 @@ You can find my weekly progress
 
 For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
 
+### Week3
+
+[Ýzmir Fish Price Anlaysis](fish_price.Rmd)
+
 ### Jekyll Themes
 
 Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/pjournal/gh-pages-template/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
