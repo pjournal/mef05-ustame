@@ -34,7 +34,7 @@ For more details see [GitHub Flavored Markdown](https://guides.github.com/featur
 
 The data includes the daily maximum and minimum prices of different fish species in 2021.
 
-[Izmir Fish Price Anlaysis](fish_price.Rmd)
+[Izmir Fish Price Anlaysis](fish_price_new.html)
 
 ### Jekyll Themes
 

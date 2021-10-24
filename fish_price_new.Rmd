@@ -1,0 +1,155 @@
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+
+library(lubridate)
+
+library(data.table)
+
+library(stringr)
+```
+
+# Izmir Fish Price Analysis
+
+## How's the data?
+
+Firstly, we will analyze the data for determine data structure, format, size and data defects. 
+
+
+```{r }
+
+
+fish_price=read.csv(file = 'C:/Users/Meryem/Desktop/MEF_BIG_DATA_ANALYTICS/503-R/week3/balik_hal_fiyatlari.csv',
+                    stringsAsFactors = FALSE, header = TRUE,sep = ";", encoding="UTF-8")
+head(fish_price)
+
+summary(fish_price)
+```
+
+## Basic Exploration
+
+### Min-Max Fish 
+
+
+In 2021, We can determine the cheapest fish all year. First of all, we calculate the average seasonal price by "MAL_ADI".
+We are taking action to determine which fish is suitable in this year.
+
+
+**1. We can see that fish having the 5 highest volatile price.  ` r the_highest_fish ` **
+
+```{r the_highest_fish }
+fish_price %>%filter(MAL_TURU=='BALIK') %>%
+    mutate (ay=lubridate::month(TARIH),daily_change=(AZAMI_UCRET-ASGARI_UCRET),daily_avg=(AZAMI_UCRET+ASGARI_UCRET)/2) %>%
+    mutate(avg_change=(daily_change/2)/daily_avg*100) %>% group_by(MAL_ADI) %>%
+    summarise(avg_seasonal_change=mean(avg_change),avg_seasonal=mean(daily_avg)) %>%
+    arrange(desc(avg_seasonal_change)) %>% head(5)
+
+```
+
+**2. We investigate the highest volatile price of fish "MERCAN (BÜYÜKBOY)" **
+
+When we examine the average price distribution of "MERCAN (BÜYÜKBOY)" fish by months.
+
+```{r mercan }
+ 
+mercan=fish_price %>% filter(MAL_ADI=="MERCAN (BÜYÜKBOY)") %>% 
+  mutate (ay=lubridate::month(TARIH),daily_change=(AZAMI_UCRET-ASGARI_UCRET),daily_avg=(AZAMI_UCRET+ASGARI_UCRET)/2)
+
+  boxplot(daily_avg~ay,
+          data=mercan,
+          main="Mercan Data",
+          xlab="Month Number",
+          ylab="Daily Average",
+          col="orange",
+          border="brown"
+  )  
+  
+```
+
+It can be purchased at an suitable price in the first 4 months "MERCAN" average.
+
+**3. We can see that fish having the 5 lowest volatile price. ` r the_lowest_fish` **
+
+```{r the_lowest_fish }
+fish_price %>%filter(MAL_TURU=='BALIK') %>%
+    mutate (ay=lubridate::month(TARIH),daily_change=(AZAMI_UCRET-ASGARI_UCRET),daily_avg=(AZAMI_UCRET+ASGARI_UCRET)/2) %>%
+    mutate(avg_change=(daily_change/2)/daily_avg*100) %>% group_by(MAL_ADI) %>%
+    summarise(avg_seasonal_change=mean(avg_change),avg_seasonal=mean(daily_avg)) %>%
+    arrange(desc(avg_seasonal_change)) %>% tail(5)
+
+```
+
+When we examine the average price distribution of "MEZGİT (DONUK)" fish by months.
+
+```{r mezgit }
+ 
+mezgit=fish_price %>% filter(MAL_ADI=="MEZGİT (DONUK)") %>% 
+  mutate (ay=lubridate::month(TARIH),daily_change=(AZAMI_UCRET-ASGARI_UCRET),daily_avg=(AZAMI_UCRET+ASGARI_UCRET)/2)
+
+  boxplot(daily_avg~ay,
+          data=mezgit,
+          main="Mezgit Data",
+          xlab="Month Number",
+          ylab="Daily Average",
+          col="red",
+          border="brown"
+  )  
+  
+```
+
+Mezgit data 
+
+```{r mezgit_data }
+ 
+mezgit  
+```
+
+After analysis, I realized that  ""MEZGİT (DONUK)"  is not enough data becuase it just sold one day.
+
+I eliminated data with less than 180 days of sales.
+
+
+
+ ``` {r eliminated_data }
+elimanted=fish_price %>% filter(MAL_TURU=='BALIK') %>% group_by(MAL_ADI) %>% 
+  count() %>%filter(n>=180)
+  
+fish_prise_eliminated=fish_price %>%inner_join(elimanted,by="MAL_ADI")
+
+str(fish_prise_eliminated)
+```
+
+Again, we determine  that fish having the 5 lowest volatile price.
+
+``` {r lowest_volatile }
+datamin=  fish_prise_eliminated %>%filter(MAL_TURU=='BALIK') %>%
+    mutate (ay=lubridate::month(TARIH),daily_change=(AZAMI_UCRET-ASGARI_UCRET),daily_avg=(AZAMI_UCRET+ASGARI_UCRET)/2) %>%
+    mutate(avg_change=(daily_change/2)/daily_avg*100) %>% group_by(MAL_ADI) %>%
+    summarise(avg_seasonal_change=mean(avg_change),avg_seasonal=mean(daily_avg)) %>%
+    arrange(desc(avg_seasonal_change)) %>% tail(5)
+ 
+datamin 
+```
+"KOFANA ( DENİZ )" is the lowest volatile price. 
+
+``` {r kofana }
+kofana=fish_prise_eliminated %>% inner_join(datamin,by="MAL_ADI") %>% 
+  mutate (ay=lubridate::month(TARIH),daily_change=(AZAMI_UCRET-ASGARI_UCRET),daily_avg=(AZAMI_UCRET+ASGARI_UCRET)/2)
+  
+  boxplot(daily_avg~ay,
+          data=kofana,
+          main="Kofana Data",
+          xlab="Month Number",
+          ylab="Daily Change",
+          col="green",
+          border="brown"
+  )  
+
+``` 
+ 
+"Kofana" can be bought all season long. Because the price change is less than other fish species. 
+ 
+ 
+ 
+ 
