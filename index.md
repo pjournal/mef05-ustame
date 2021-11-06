@@ -11,23 +11,6 @@ You can find my weekly progress
 
 ### Week2
 
-```markdown
-
-# Header 1
-# Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
 For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
 
 ### Week3
@@ -36,9 +19,11 @@ The data includes the daily maximum and minimum prices of different fish species
 
 [Izmir Fish Price Anlaysis](fish_price_new.html)
 
-### Jekyll Themes
+### Week4
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/pjournal/gh-pages-template/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+Netflix Data Analysis
+
+[Netflix Data Analysis](netflix.html)
 
 ###  Contact
 Linkedin:

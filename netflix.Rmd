@@ -1,0 +1,143 @@
+---
+title: "Netflix Analysis"
+author: "Meryem Usta"
+date: "07.11.2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+
+library(lubridate)
+
+library(data.table)
+
+library(stringr)
+```
+
+## Netflix Data
+
+Netflix's data contains from 6234 observations of 12 variables. Those variables are general information about programs such as title, director, cast, country.
+
+```{r }
+netflix_data=read.csv(file = 'https://github.com/ygterl/EDA-Netflix-2020-in-R/raw/master/netflix_titles.csv',
+                    stringsAsFactors = FALSE, header = TRUE,sep = ",", encoding="UTF-8")
+str(netflix_data)
+
+
+```
+ 
+## Basic Questions 
+
+  1. How many programs are there by type? 
+
+All data contains two different type of programs that are Movie and TV Show.
+
+```{r }
+netflix_data %>% 
+  group_by(type) %>%
+  count()
+
+``` 
+ 
+ 2. What kind of movies are in this data? 
+ 
+ Top 3 kind of Movies are "Dramas", "Comedies" and "Documentaries".
+ 
+```{r }
+netflix_data %>%
+  filter(type=="Movie") %>%
+  mutate(kind=gsub("^(.*?),.*", "\\1", listed_in)) %>%
+  group_by(kind) %>%
+  count() %>% 
+  arrange(desc(n))
+``` 
+ 
+ 3. How many movie are there by country ? 
+ 
+ When analysis, I relaized that 195 movies don't have country information. So, I eliminated this data.
+
+```{r }
+netflix_country = netflix_data %>%
+  mutate(country=gsub("^(.*?),.*", "\\1", country)) %>% 
+  filter(type=="Movie" & nchar(country)!=0 ) %>%
+  group_by(country) %>% 
+  count() %>%
+  summarize(total_count=sum(n)) %>%
+  arrange(desc(total_count)) %>%
+  head(10)
+
+
+netflix_country_by_year = netflix_data %>% 
+  mutate(country=gsub("^(.*?),.*", "\\1", country)) %>% 
+  filter(type=="Movie" & nchar(country)!=0 ) %>%
+  group_by(country,release_year) %>% count() %>%
+  arrange(desc(country,release_year)) 
+
+netflix_country_by_year2= netflix_country_by_year %>% inner_join(netflix_country,by="country")
+netflix_country_by_year2
+``` 
+ 
+Lets see the grap.
+ 
+```{r }
+
+ggplot(netflix_country_by_year2,aes(x=release_year,y=country,color=country,size=n)) + 
+  geom_line() + 
+  labs(title="Yıllara Göre Ülkelerin Toplam Film Sayısı",caption="Source: Netflix")
+  
+  
+``` 
+ 4. How many movie did the directors make ? 
+ 
+ This is same analysis above, but this time according to directors
+ 
+
+```{r }
+netflix_director = netflix_data %>%
+  mutate(country=gsub("^(.*?),.*", "\\1", director)) %>% 
+  filter(type=="Movie" & nchar(director)!=0 ) %>%
+  group_by(director) %>% 
+  count() %>%
+  summarize(total_count=sum(n)) %>%
+  arrange(desc(total_count)) %>%
+  head(5)
+
+
+netflix_director_by_year = netflix_data %>% 
+  mutate(director=gsub("^(.*?),.*", "\\1", director)) %>% 
+  filter(type=="Movie" & nchar(director)!=0 ) %>%
+  group_by(director,release_year) %>% count() %>%
+  arrange(desc(director,release_year)) 
+
+netflix_director_by_year2= netflix_director_by_year %>% inner_join(netflix_director,by="director")
+netflix_director_by_year2
+``` 
+
+Lets see the grap.
+ 
+```{r }
+
+ggplot(netflix_director_by_year2,aes(x=release_year,y=n,color=director)) + 
+  geom_line() + 
+  labs(title="Yıllara Göre Yönetmenlerin Film Sayısı",caption="Source: Netflix")
+  
+  
+``` 
+
+We saw the upper graph:
+The number of films made by the directors who made the most films in the last 10 years has increased.
+
+
+To be continued.....
+
+
+
+
+Thanks for  Yigit Erol’s [Medium](https://medium.com/deep-learning-turkiye/exploration-of-netflix-2020-dataset-in-r-markdown-eda-b202bbaec4a)
+
+
+
+
