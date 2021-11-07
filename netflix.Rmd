@@ -15,6 +15,9 @@ library(lubridate)
 library(data.table)
 
 library(stringr)
+
+install.packages('plotrix')
+library(plotrix)
 ```
 
 ## Netflix Data
@@ -31,16 +34,46 @@ str(netflix_data)
  
 ## Basic Questions 
 
-  1. How many programs are there by type? 
+  1. How many programs are there by type or country ? 
 
 All data contains two different type of programs that are Movie and TV Show.
 
 ```{r }
-netflix_data %>% 
-  group_by(type) %>%
-  count()
+netflix_country=netflix_data %>%
+  mutate(country=gsub("^(.*?),.*", "\\1", country)) %>% 
+  filter(type=="Movie" & nchar(country)!=0 ) %>%
+  group_by(country) %>%
+  count() %>%
+  arrange(desc(n)) %>% 
+  head(5)
+
+# This is normal pie chart
+ggplot(netflix_country,aes(x='',y=n,fill=country))+
+ggtitle("Most 10 Country by Movie Count")+
+geom_bar(stat = "Identity",width = 2,color="White")+
+coord_polar("y",start = 0) +
+theme_void()
+
+# This is normal donut chart
+
+ggplot(netflix_country, aes(x = 2, y = n, fill = country)) +
+  geom_bar(stat = "identity", color = "white") +
+  coord_polar(theta = "y", start = 0)+
+  theme_void()+
+  xlim(0.5, 2.5)
 
 ``` 
+
+We examine data according to country. 
+ 
+```{r }
+netflix_data %>% 
+  group_by(country) %>%
+  count()
+
+```
+ 
+ 
  
  2. What kind of movies are in this data? 
  
@@ -97,7 +130,7 @@ ggplot(netflix_country_by_year2,aes(x=release_year,y=country,color=country,size=
 
 ```{r }
 netflix_director = netflix_data %>%
-  mutate(country=gsub("^(.*?),.*", "\\1", director)) %>% 
+  mutate(director=gsub("^(.*?),.*", "\\1", director)) %>% 
   filter(type=="Movie" & nchar(director)!=0 ) %>%
   group_by(director) %>% 
   count() %>%
@@ -128,15 +161,78 @@ ggplot(netflix_director_by_year2,aes(x=release_year,y=n,color=director)) +
 ``` 
 
 We saw the upper graph:
-The number of films made by the directors who made the most films in the last 10 years has increased.
+The number of films made by the directors who made the most films in the last 10 years has increased. I rearrange the formula of plot  that has data between 2005 and 2020.
 
 
+ 
+```{r }
+netflix_director_by_year2=netflix_director_by_year2 %>% filter(release_year>=2005 & release_year<=2020)
+
+ggplot(netflix_director_by_year2,aes(x=release_year,y=n,color=director)) + 
+  geom_line() + 
+  labs(title="Yıllara Göre Yönetmenlerin Film Sayısı",caption="Source: Netflix") +
+  expand_limits(y=0)
+  
+  
+``` 
+
+
+
+ 4. What does situation cast ? 
+ 
+We can find out how many movies the actors have in total.
+
+ We can see that  7 actors of top 10  are Indian.
+```{r }
+
+netflix_cast= netflix_data %>%
+  mutate(cast=gsub("^(.*?),.*", "\\1", cast)) %>% 
+  filter(type=="Movie" & nchar(cast)!=0 ) %>%
+  group_by(cast,country) %>% 
+  count() %>%
+  summarize(total_count=sum(n)) %>%
+  arrange(desc(total_count)) %>%
+  head(5)
+
+netflix_cast
+
+``` 
+
+
+```  {r }
+
+# Which Date , Which Cast
+netflix_cast_by_year = netflix_data %>% 
+  mutate(cast=gsub("^(.*?),.*", "\\1", cast)) %>% 
+  filter(type=="Movie" & nchar(cast)!=0 ) %>%
+  group_by(cast,release_year) %>% count() %>%
+  arrange(desc(cast,release_year))
+
+
+netflix_cast_by_year2= netflix_director_by_year %>% inner_join(netflix_cast,by="cast")
+netflix_cast_by_year2
+``` 
+
+ 
+ Let's see the grap
+ 
+```  {r } 
+
+netflix_cast
+
+ggplot(netflix_cast_by_year2,aes(x=release_year,y=n,color=cast)) + 
+  geom_point() + 
+  labs(title="Yıllara Göre Oyuncuların Film Sayısı",caption="Source: Netflix") +
+  expand_limits(y=0)
+
+``` 
+ 
 To be continued.....
 
 
 
 
-Thanks for  Yigit Erol’s [Medium](https://medium.com/deep-learning-turkiye/exploration-of-netflix-2020-dataset-in-r-markdown-eda-b202bbaec4a)
+Thanks for Yigit Erol’s [Medium](https://medium.com/deep-learning-turkiye/exploration-of-netflix-2020-dataset-in-r-markdown-eda-b202bbaec4a)
 
 
 
