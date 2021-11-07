@@ -16,7 +16,6 @@ library(data.table)
 
 library(stringr)
 
-install.packages('plotrix')
 library(plotrix)
 ```
 
@@ -209,7 +208,7 @@ netflix_cast_by_year = netflix_data %>%
   arrange(desc(cast,release_year))
 
 
-netflix_cast_by_year2= netflix_director_by_year %>% inner_join(netflix_cast,by="cast")
+netflix_cast_by_year2= netflix_cast_by_year %>% inner_join(netflix_cast,by="cast")
 netflix_cast_by_year2
 ``` 
 
