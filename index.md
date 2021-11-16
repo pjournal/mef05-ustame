@@ -5,13 +5,9 @@
 
 You can find my weekly progress
 
-### Week1
+### Week1 - 2 
 
 [Rmarkdown](rmarkdown.md)
-
-### Week2
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
 
 ### Week3
 
@@ -24,6 +20,13 @@ The data includes the daily maximum and minimum prices of different fish species
 Netflix Data Analysis
 
 [Netflix Data Analysis](netflix.html)
+
+### Week5
+
+Izmir Fish Price 2021 Shiny App
+
+[Izmir Fish Shiny](https://mef05g-rninjas.shinyapps.io/Fish_Price/)
+
 
 ###  Contact
 Linkedin:
