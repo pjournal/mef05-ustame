@@ -172,8 +172,9 @@ pre code {
 <div id="hows-the-data" class="section level2">
 <h2>How’s the data?</h2>
 <p>Firstly, we will analyze the data for determine data structure, format, size and data defects.</p>
-<pre class="r"><code>fish_price=read.csv(file = &#39;C:/Users/Meryem/Desktop/MEF_BIG_DATA_ANALYTICS/503-R/week3/balik_hal_fiyatlari.csv&#39;,
+<pre class="r"><code>fish_price=read.csv(file = &#39;https://raw.githubusercontent.com/pjournal/mef05-ustame/gh-pages/balik_hal_fiyatlari.csv&#39;,
                     stringsAsFactors = FALSE, header = TRUE,sep = &quot;;&quot;, encoding=&quot;UTF-8&quot;)
+
 head(fish_price)</code></pre>
 <pre><code>##                 TARIH MAL_TURU           MAL_ADI BIRIM ASGARI_UCRET AZAMI_UCRET
 ## 1 2021-01-02 00:00:00    BALIK     TIRSI (DENİZ)    KG         5.83        12.5

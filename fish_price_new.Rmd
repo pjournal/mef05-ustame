@@ -20,8 +20,9 @@ Firstly, we will analyze the data for determine data structure, format, size and
 ```{r }
 
 
-fish_price=read.csv(file = 'C:/Users/Meryem/Desktop/MEF_BIG_DATA_ANALYTICS/503-R/week3/balik_hal_fiyatlari.csv',
+fish_price=read.csv(file = 'https://raw.githubusercontent.com/pjournal/mef05-ustame/gh-pages/balik_hal_fiyatlari.csv',
                     stringsAsFactors = FALSE, header = TRUE,sep = ";", encoding="UTF-8")
+
 head(fish_price)
 
 summary(fish_price)
