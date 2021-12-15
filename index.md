@@ -27,6 +27,11 @@ Izmir Fish Price 2021 Shiny App
 
 [Izmir Fish Shiny](https://mef05g-rninjas.shinyapps.io/Fish_Price/)
 
+### R-Ninjas Group Projects
+
+Stack OverFlow Survey Analysis
+
+[Stack OverFlow Survey Analysis](https://pjournal.github.io/mef05g-rninjas/)
 
 ###  Contact
-Linkedin:
+[Meryem Usta Linkedin](https://www.linkedin.com/in/meryemusta/)
